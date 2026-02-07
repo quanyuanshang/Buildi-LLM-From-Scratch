@@ -51,8 +51,8 @@ class SelfAttention_v1(nn.Module):
        return context_vec
    
 # part3 causal class
-batch = torch.stack((inputs, inputs), dim=0)
-print(batch.shape)
+# batch = torch.stack((inputs, inputs), dim=0)
+# print(batch.shape)
 
 class CausalAttention(nn.Module):
     def __init__(self, d_in, d_out, context_length, dropout, qkv_bias=False):
@@ -115,9 +115,9 @@ class MultiHeadAttention(nn.Module):
         context_vec = context_vec.transpose(1, 2).contiguous().view(b, num_tokens, self.d_out)
         return context_vec
     
-a = torch.tensor([[[[0.2745, 0.6584, 0.2775, 0.8573],[0.8993, 0.0390, 0.9268, 0.7388],[0.7179, 0.7058, 0.9156, 0.4340]],[[0.0772, 0.3565, 0.1479, 0.5331],[0.4066, 0.2318, 0.4545, 0.9737],[0.4606, 0.5159, 0.4220, 0.5786]]]])
-first_head = a[0, 0, :, :]
-first_res = first_head @ first_head.T
-second_head = a[0, 1, :, :]
-second_res = second_head @ second_head.T
-print("\nSecond head:\n", second_res)
+# a = torch.tensor([[[[0.2745, 0.6584, 0.2775, 0.8573],[0.8993, 0.0390, 0.9268, 0.7388],[0.7179, 0.7058, 0.9156, 0.4340]],[[0.0772, 0.3565, 0.1479, 0.5331],[0.4066, 0.2318, 0.4545, 0.9737],[0.4606, 0.5159, 0.4220, 0.5786]]]])
+# first_head = a[0, 0, :, :]
+# first_res = first_head @ first_head.T
+# second_head = a[0, 1, :, :]
+# second_res = second_head @ second_head.T
+# print("\nSecond head:\n", second_res)
