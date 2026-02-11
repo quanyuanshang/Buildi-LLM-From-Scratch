@@ -98,6 +98,7 @@ class MultiHeadAttention(nn.Module):
         self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
         self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.out_proj = nn.Linear(d_out, d_out, bias=qkv_bias)
         self.dropout = nn.Dropout(dropout)
         self.register_buffer('mask',torch.triu(torch.ones(context_length, context_length),diagonal=1))
     
@@ -113,6 +114,7 @@ class MultiHeadAttention(nn.Module):
         attn_weights = self.dropout(attn_weights)
         context_vec = attn_weights @ values
         context_vec = context_vec.transpose(1, 2).contiguous().view(b, num_tokens, self.d_out)
+        context_vec = self.out_proj(context_vec)
         return context_vec
     
 # a = torch.tensor([[[[0.2745, 0.6584, 0.2775, 0.8573],[0.8993, 0.0390, 0.9268, 0.7388],[0.7179, 0.7058, 0.9156, 0.4340]],[[0.0772, 0.3565, 0.1479, 0.5331],[0.4066, 0.2318, 0.4545, 0.9737],[0.4606, 0.5159, 0.4220, 0.5786]]]])

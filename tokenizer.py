@@ -31,6 +31,20 @@ def create_dataloader_v1(txt, batch_size=4, max_length=256,
    return dataloader
 
 
+def text_to_token_ids(text, tokenizer):
+   """Convert text to token IDs using the provided tokenizer."""
+   import torch
+   token_ids = tokenizer.encode(text)
+   return torch.tensor(token_ids).unsqueeze(0)
+
+
+def token_ids_to_text(token_ids, tokenizer):
+   """Convert token IDs back to text using the provided tokenizer."""
+   if isinstance(token_ids, torch.Tensor):
+       token_ids = token_ids.squeeze(0).tolist()
+   return tokenizer.decode(token_ids)
+
+
 
 # with open("the-verdict.txt", "r", encoding="utf-8") as f:
 #    raw_text = f.read()
